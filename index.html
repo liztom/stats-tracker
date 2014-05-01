@@ -8,21 +8,30 @@
 </head>
 <body>
   <script type="text/x-handlebars">
-  <h2>Stat Tracker</h2>
   <div class="container">
+  <h2>Stat Tracker</h2>
     {{outlet}}
   </div>
+  </script>
+
+  <script type="text/x-handlebars" id="new_team">
+    <h3>New Team</h3>
+      <div class="form-group">
+        <label for="name">Team Name</label>
+        {{input type="text" class="form-control" id="name" placeholder="Moe's Goombas..." value=name}}
+      </div>
+    <button {{action createTeam}} class="btn btn-primary">Submit</button>
   </script>
 
   <script type="text/x-handlebars" id="teams">
     <div class="col-md-6">
     <ul>
     {{#each team in controller itemController = 'team'}}
-      <div class="col-md-9">
-        <li>{{#link-to 'team' team}}{{team.name}}{{/link-to}} {{team.id}}
+      <div class="col-md-7 team">
+        <li>{{#link-to 'team' team}}{{team.name}}{{/link-to}}
       </div>
-      <div class="col-md-3">
-      <button {{action deleteTeam}} class="btn btn-danger btn-xs">X</button></li>
+      <div class="col-md-5 delete">
+        <button {{action deleteTeam}} class="btn btn-delete btn-xs">X</button></li>
       </div>
     {{/each}}
     </ul>
@@ -36,14 +45,19 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="new_team">
-    <h3>New Team</h3>
-      <div class="form-group">
-        <label for="name">Team Name</label>
-        {{input type="text" class="form-control" id="name" placeholder="Moe's Goombas..." value=name}}
-      </div>
-    <button {{action createTeam}} class="btn btn-primary">Submit</button>
+  <script type="text/x-handlebars" id="team">
+    <h3>{{name}}</h3>
+    <p>Players:</p>
+    <ul>
+      {{#each player in model.players}}
+        {{#link-to 'player' player class="btn btn-success btn-player"}}{{player.name}}{{/link-to}}
+      {{/each}}
+    </ul>
+    <p>{{#link-to 'teams' class="btn btn-primary"}}Hide{{/link-to}}</p>
+    <p>{{#link-to 'new_player'class="btn btn-info"}}Add Player{{/link-to}}</p>
+    {{outlet}}
   </script>
+
 
   <script type="text/x-handlebars" id="new_player">
     <h3>New Player</h3>
@@ -52,6 +66,24 @@
         {{input type="text" class="form-control" id="name" placeholder="Moe..." value=name}}
       </div>
     <button {{action addPlayer}} class="btn btn-primary">Submit</button>
+  </script>
+
+  <script type="text/x-handlebars" id="player">
+    <h3>{{name}}</h3>
+      <div class="panel panel-default">
+      <div class="panel-heading panel-title">
+        Stats
+      </div>
+    <div class="panel-body">
+      <p>Total Shots Attempted: {{model.shots.length}}</p>
+      <p>Total Shots Made: </p>
+      <p>Total Points: </p>
+      <p>Shooting Percentage: </p>
+    </div>
+    </div>
+      {{outlet}}
+    <p>{{#link-to 'new_shot' class="btn btn-primary"}}Add Shot{{/link-to}}</p>
+    <p>{{#link-to 'team' class="btn btn-primary"}}Hide{{/link-to}}</p>
   </script>
 
   <script type="text/x-handlebars" id="players">
@@ -67,18 +99,28 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="team">
-    <h3>{{name}}</h3>
-    <p>Players:</p>
-    <ul>
-      {{#each player in model.players}}
-        <li>{{player.name}}</li>
-      {{/each}}
-    </ul>
-    <p>{{#link-to 'teams' class="btn btn-primary"}}Hide{{/link-to}}</p>
-    <p>{{#link-to 'new_player'class="btn btn-info"}}Add Player{{/link-to}}</p>
-    {{outlet}}
+  <script type="text/x-handlebars" id="new_shot">
+  <div class="panel panel-default">
+    <div class="panel-heading panel-title">
+      <h3>Add A Shot</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="points">Points?</label>
+          {{view Ember.Select content=point optionValuePath="content.id" optionLabelPath="content.points" value=points class="form-control"}}
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="attempt">Successful?</label>
+          {{view Ember.Select content=attempts optionValuePath="content.id" optionLabelPath="content.attempt" value=attempt class="form-control"}}
+        </div>
+      </div>
+    <button {{action addShot}} class="btn btn-primary">Add Attempt</button>
+  </div>
   </script>
+
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
@@ -89,10 +131,12 @@
   <script src="js/router.js"></script>
   <script src="js/models/team.js"></script>
   <script src="js/models/player.js"></script>
-  <script src="js/controllers/teams_controller.js"></script>
+  <script src="js/models/shot.js"></script>
   <script src="js/controllers/new_team_controller.js"></script>
   <script src="js/controllers/team_controller.js"></script>
   <script src="js/controllers/new_player_controller.js"></script>
+  <script src="js/controllers/new_shot_controller.js"></script>
+
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>
 </body>

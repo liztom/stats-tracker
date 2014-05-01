@@ -9,3 +9,29 @@ h3 {
 .btn-warning {
   margin-top: 20px;
 }
+
+.btn-player {
+  margin: 5px;
+  border-radius: 0px;
+}
+
+.btn-delete {
+  color: red;
+  font-weight: bold;
+  background-color: transparent;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.team {
+  padding-top: 1px;
+  border-bottom: solid;
+  border-color: white;
+  border-width: 1px;
+}
+
+.delete {
+  border-bottom: solid;
+  border-color: white;
+  border-width: 1px;
+}
