@@ -25,12 +25,9 @@ h3 {
 
 .team {
   padding-top: 1px;
-  border-bottom: solid;
-  border-color: white;
-  border-width: 1px;
 }
 
-.delete {
+.team-row {
   border-bottom: solid;
   border-color: white;
   border-width: 1px;

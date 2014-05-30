@@ -25,19 +25,23 @@
 
   <script type="text/x-handlebars" id="teams">
     <div class="col-md-6">
-    <ul>
     {{#each team in controller itemController = 'team'}}
+    <div class="col-md-11">
+    <div class="row team-row"> 
       <div class="col-md-7 team">
-        <li>{{#link-to 'team' team}}{{team.name}}{{/link-to}}
+        {{#link-to 'team' team}}{{team.name}}{{/link-to}}
       </div>
-      <div class="col-md-5 delete">
-        <button {{action deleteTeam}} class="btn btn-delete btn-xs">X</button></li>
+      <div class="col-md-1 delete">
+        <button {{action deleteTeam}} class="btn btn-delete btn-xs">X</button>
+      </div>
+      </div>
       </div>
     {{/each}}
     </ul>
-
+    <div class="row">
     {{#link-to 'new_team' class="btn btn-warning"}}Add Team{{/link-to}}
     {{#link-to 'players' class="btn btn-warning"}}Show Players{{/link-to}}
+    </div>
     </div>
 
     <div class="col-md-6">
@@ -92,7 +96,7 @@
     <ul>
     {{#each player in controller}}
       <div class="col-md-9">
-        <li>{{player.name}} {{player.id}} <u>{{player.team.name}}</u></li>
+        <div class="btn btn-success btn-player">{{player.name}}</div>
       </div>
     {{/each}}
     </ul>
